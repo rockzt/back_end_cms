@@ -1,7 +1,6 @@
 # back_end_cms
 
-DataBase Description  es el modelo
-=======
+# DataBase Description es el modelo
 
         +-------------------------+
         |         Author          |
@@ -30,7 +29,7 @@ DataBase Description  es el modelo
              |
              |
              v
-             
+
         +-------------------------+
         |        Category         |
         +-------------------------+
