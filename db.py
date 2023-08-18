@@ -6,9 +6,10 @@ CONNECTION = "dbname=dvdrental user=postgres  host=localhost"  # cambiar el conn
 def insert(columns, table, values: list):
     """
 
-    :param columns:
-    :param table:
+    :param columns: param table:
     :param values: list:
+    :param table: 
+    :param values: list: 
 
     """
     with psycopg.connect(CONNECTION) as conn:
