@@ -1,6 +1,6 @@
 import psycopg
 
-CONNECTION="dbname=dvdrental user=postgres  host=localhost"
+CONNECTION="dbname=dvdrental user=postgres  host=localhost" #cambiar el connet"
 def insert(columns, table, values:list):
     with psycopg.connect(CONNECTION) as conn:
         with conn.cursor() as cur:
