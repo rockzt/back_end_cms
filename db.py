@@ -8,8 +8,8 @@ def insert(columns, table, values: list):
 
     :param columns: param table:
     :param values: list:
-    :param table: 
-    :param values: list: 
+    :param table:
+    :param values: list:
 
     """
     with psycopg.connect(CONNECTION) as conn:
