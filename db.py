@@ -16,8 +16,7 @@ def insert(columns, table, values: list):
         with conn.cursor() as cur:
             columns = ", ".join(columns)
             data = ", ".join(
-                [f"'{v}'" if isinstance(v, str) else f"{v}" for v in values]
-            )
+                [f"'{v}'" if isinstance(v, str) else f"{v}" for v in values])
             query = f"INSERT INTO {table} ({columns}) VALUES ({data})"
             cur.execute(query)
     return "Dato insertado"
