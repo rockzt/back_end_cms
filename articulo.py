@@ -20,7 +20,7 @@ def get_all_articles():
 def get_article(id):
     """
 
-    :param id: 
+    :param id:
 
     """
     columns = [
@@ -39,7 +39,7 @@ def get_article(id):
 def get_article_by_category(id):
     """
 
-    :param id: 
+    :param id:
 
     """
     columns = [
@@ -58,7 +58,7 @@ def get_article_by_category(id):
 def get_deactivated_articles(active):
     """
 
-    :param active: 
+    :param active:
 
     """
     columns = [
@@ -77,7 +77,7 @@ def get_deactivated_articles(active):
 def get_article_by_author(id):
     """
 
-    :param id: 
+    :param id:
 
     """
     columns = [
@@ -96,7 +96,7 @@ def get_article_by_author(id):
 def deactivate_article(id):
     """
 
-    :param id: 
+    :param id:
 
     """
     where = "art_id", "=", int(id)
@@ -106,8 +106,8 @@ def deactivate_article(id):
 def modify_article(id, column_values):
     """
 
-    :param id: 
-    :param column_values: 
+    :param id:
+    :param column_values:
 
     """
     dict_vals = column_values
@@ -118,7 +118,7 @@ def modify_article(id, column_values):
 def create_artticle(column_values):
     """
 
-    :param column_values: 
+    :param column_values:
 
     """
     dict_vals = column_values
