@@ -1,6 +1,5 @@
 import db
 
-
 """ARTICLE SECTION"""
 
 
