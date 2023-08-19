@@ -1,6 +1,6 @@
 import psycopg
 
-CONN_STRING = "dbname=dvdrental user=postgres password=postgres host=localhost port=5432"  #Cambiar el parametro dbname por el nombre de tu base de datos
+CONN_STRING = "dbname=blog user=postgres password=postgres host=localhost port=5432"  #Cambiar el parametro dbname por el nombre de tu base de datos
 
 def select(columns, table_name, where=None):
     with psycopg.connect(CONN_STRING) as conn:
