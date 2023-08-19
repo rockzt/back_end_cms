@@ -1,5 +1,4 @@
 import db
-
 """ARTICLE SECTION"""
 
 
@@ -143,7 +142,6 @@ dict_val = {
 # print(get_article_by_author(1))
 # print(modify_article(2, dict_val))
 print(create_artticle(dict_val))
-
 """
 - Crear nuevos artículos
 - Modificar artículos existentes
