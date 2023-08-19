@@ -4,6 +4,7 @@ import db
 
 
 def get_all_articles():
+    """ """
     columns = [
         "titulo",
         "conten",
@@ -17,6 +18,11 @@ def get_all_articles():
 
 
 def get_article(id):
+    """
+
+    :param id: 
+
+    """
     columns = [
         "titulo",
         "conten",
@@ -31,6 +37,11 @@ def get_article(id):
 
 
 def get_article_by_category(id):
+    """
+
+    :param id: 
+
+    """
     columns = [
         "titulo",
         "conten",
@@ -45,6 +56,11 @@ def get_article_by_category(id):
 
 
 def get_deactivated_articles(active):
+    """
+
+    :param active: 
+
+    """
     columns = [
         "titulo",
         "conten",
@@ -59,6 +75,11 @@ def get_deactivated_articles(active):
 
 
 def get_article_by_author(id):
+    """
+
+    :param id: 
+
+    """
     columns = [
         "titulo",
         "conten",
@@ -73,17 +94,33 @@ def get_article_by_author(id):
 
 
 def deactivate_article(id):
+    """
+
+    :param id: 
+
+    """
     where = "art_id", "=", int(id)
     return db.update({"active": 0}, "articulo", (where))
 
 
 def modify_article(id, column_values):
+    """
+
+    :param id: 
+    :param column_values: 
+
+    """
     dict_vals = column_values
     where = "art_id", "=", int(id)
     return db.update(dict_vals, "articulo", (where))
 
 
 def create_artticle(column_values):
+    """
+
+    :param column_values: 
+
+    """
     dict_vals = column_values
     return db.insert(dict_vals, "articulo")
 
