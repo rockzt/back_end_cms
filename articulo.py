@@ -35,19 +35,30 @@ def deactivate_article(id):
   return db.update({"active":0}, "articulo", (where))
 
 
-def modify_article(id, column_values):
-    dict_vals  = column_values
+def modify_article(id,columns, values ):
     where = "art_id", "=", int(id)
-    return db.update(dict_vals, "articulo", (where))
+    return db.update(columns, "articulo", values ,(where))
 
 
-def create_artticle(column_values):
-    dict_vals  = column_values
-    return db.insert(dict_vals, "articulo")
+def create_artticle(values):
+  table="articulo"
+  columns = ['titulo', 'conten', 'autor_id', 'categoria_id', 'pub_date', 'last_update', 'active']
+  return db.insert(columns, table, values)
 
 
 
-dict_val = {"titulo":"Los drones", "conten":"Nuestro compañeros autónomos!!!.", "autor_id":1, "categoria_id":"3", "pub_date":"20230423 11:42:35.173", "last_update":"20230423 11:42:35.173", "active":1}
+dict_val = {
+  "titulo":"Los drones",
+  "conten":"Nuestro compañeros autónomos!!!.",
+  "autor_id":1,
+  "categoria_id":3,
+  "pub_date":"20230423 11:42:35.173",
+  "last_update":"20230423 11:42:35.173",
+  "active":1
+}
+
+values = ("Los drones 2.3", "Nuestro compañeros autónomos o enemigos?????!!!!!!.")
+columns = ['titulo', 'conten']
 
 #print(get_all_articles())
 #print(get_article(2))
@@ -55,8 +66,8 @@ dict_val = {"titulo":"Los drones", "conten":"Nuestro compañeros autónomos!!!."
 #print(get_article_by_category(3))
 #print(get_deactivated_articles(1))
 #print(get_article_by_author(1))
-#print(modify_article(2, dict_val))
-#print(create_artticle(dict_val))
+print(modify_article(2, columns, values))
+#print(create_artticle(values))
 
 '''
 - Crear nuevos artículos

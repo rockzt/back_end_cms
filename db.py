@@ -14,7 +14,7 @@ def select(columns, table_name, where=None):
             result = cur.fetchall()
     return result
 
-
+'''
 def update(column_value, table_name, where=None):
   with psycopg.connect(CONN_STRING) as conn:
       with conn.cursor() as cur:
@@ -25,19 +25,32 @@ def update(column_value, table_name, where=None):
           print(query)
           cur.execute(query)
   return f'Parametro Actualizado -> {select("*", table_name, where)}'
+'''
+
+def update(columns, table, values:tuple, where=None):
+    with psycopg.connect(CONN_STRING) as conn:
+        with conn.cursor() as cur:
+            values = [f"'{v}'" if isinstance(v,str) else f"{v}" for v in values]
+            where_string = f'WHERE {where[0]} {where[1]} {where[2]}'
+            values_list = [f'{k}={v}' for k, v in zip(columns, values)]
+            values_list_formatted = ", ".join(values_list)
+            print(values_list_formatted)
+            query =f'UPDATE {table} SET {values_list_formatted} {where_string};'
+            print(query)
+            cur.execute(query)
+            result = f"Parametro Creardo -> {values}"
+    return result
 
 
-def insert(column_value, table_name):
-  with psycopg.connect(CONN_STRING) as conn:
-      with conn.cursor() as cur:
-          columns = [column for column in column_value.keys()]
-          values = [f"'{value}'" if isinstance(value, str) else str(value) for value in column_value.values()]
-          column_list = ", ".join(columns)
-          value_list = ', '.join(values) #Can concatenate not str values
-          query =f'INSERT INTO {table_name} ({column_list}) VALUES ({value_list});'
-          cur.execute(query)
-          result = f"Parametro Creardo -> {column_value}"
-  return result
+def insert(columns, table, values:tuple):
+    with psycopg.connect(CONN_STRING) as conn:
+        with conn.cursor() as cur:
+            columns = ", ".join(columns)
+            data=", ".join([f"'{v}'" if isinstance(v,str) else f"{v}" for v in values])
+            query =(f"INSERT INTO {table} ({columns}) VALUES ({data})")
+            cur.execute(query)
+            result = f"Parametro Creardo -> {values}"
+    return result
 
 
 def delete(table_name, where):
