@@ -18,9 +18,9 @@ def get_article_by_category(id):
   where = "categoria_id", "=", (id)
   return db.select(columns, "articulo", (where))
 
-def get_deactivated_articles(active):
+def get_activated_articles():
   columns = ["titulo", "conten", "autor_id", "categoria_id", "pub_date", "last_update", "active"]
-  where = "active", "=", (active)
+  where = "active", "=", (1)
   return db.select(columns, "articulo", (where))
 
 
@@ -31,8 +31,10 @@ def get_article_by_author(id):
 
 
 def deactivate_article(id):
+  columns = ["active"]
+  values = ("0")
   where = "art_id", "=", int(id)
-  return db.update({"active":0}, "articulo", (where))
+  return db.update(columns, "articulo", values ,(where))
 
 
 def modify_article(id,columns, values ):
@@ -40,9 +42,8 @@ def modify_article(id,columns, values ):
     return db.update(columns, "articulo", values ,(where))
 
 
-def create_artticle(values):
+def create_artticle(columns,values):
   table="articulo"
-  columns = ['titulo', 'conten', 'autor_id', 'categoria_id', 'pub_date', 'last_update', 'active']
   return db.insert(columns, table, values)
 
 
@@ -64,9 +65,9 @@ columns = ['titulo', 'conten']
 #print(get_article(2))
 #print(deactivate_article(2))
 #print(get_article_by_category(3))
-#print(get_deactivated_articles(1))
+#print(get_activated_articles())
 #print(get_article_by_author(1))
-print(modify_article(2, columns, values))
+#print(modify_article(2, columns, values))
 #print(create_artticle(values))
 
 '''
