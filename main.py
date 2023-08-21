@@ -1,5 +1,5 @@
 import psycopg2
-import category
+from category import *
 
 from psycopg2 import sql
 
@@ -92,12 +92,46 @@ def main():
             pass
         elif option == 12:
             # Llamar a la función para crear una nueva categoría
+            print("Creemos juntos una nueva categoria")
+            name=input("Dame un nombre para la categoria nueva:\n")
+            description=input("Describe esta categoria:\n")
+            create_category(name,description)
+            
+            # La lista de categoria es:
+            
+            print("La nueva lista es:\n")
+            categories=get_all_categories()
+            for category in categories:
+                print(category)
+            
             pass
         elif option == 13:
+            #Primero mostramos la lista actual
+            print("La nueva lista es:\n")
+            categories=get_all_categories()
+            for category in categories:
+                print(category)
+            
+            catid=input("Que numero de categoria quieres modificar?\n")
+            nombrecat=input("¿que nombre quieres darle?\n")
+            descicat=input("¿Que descripcion quieres darle?\n")
+            
+            
             # Llamar a la función para modificar los datos de una categoría
+            update_category(catid,nombrecat,descicat)
+            
+            print("La nueva lista es:\n")
+            categories=get_all_categories()
+            for category in categories:
+                print(category)
+            
+            
             pass
         elif option == 14:
-            # Llamar a la función para obtener una lista de categorías
+            # Obtener la lista de categorias.
+            categories=get_all_categories()
+            for category in categories:
+                print(category)
             pass
 
 if __name__ == "__main__":

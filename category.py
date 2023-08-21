@@ -1,3 +1,18 @@
+import psycopg2
+from psycopg2 import sql
+
+# Conexión a la base de datos PostgreSQL
+conn = psycopg2.connect(
+    database="back_end_cms",
+    user="postgres",
+    password="mamita",
+    host="localhost",  # Cambia esto a la ubicación de tu base de datos
+    port="5432"  # Cambia esto al puerto de tu base de datos
+)
+
+# Crear un cursor para interactuar con la base de datos
+cursor = conn.cursor()
+
 # Función para crear una nueva categoría
 def create_category(name, description):
     insert_query = sql.SQL("INSERT INTO category (name_cate, descrip_cate) VALUES ({}, {}) RETURNING category_id").format(
