@@ -46,7 +46,8 @@ def insert(columns, table, values:tuple):
     with psycopg.connect(CONN_STRING) as conn:
         with conn.cursor() as cur:
             columns = ", ".join(columns)
-            data=", ".join([f"'{v}'" if isinstance(v,str) else f"{v}" for v in values])
+            data=", ".join([f"'{v}'" if isinstance(v,str) or isinstance(v,datetime.date) else f"{v}" for v in values])
+            #data=", ".join([f"'{v}'" if isinstance(v,str) else f"{v}" for v in values])
             query =(f"INSERT INTO {table} ({columns}) VALUES ({data})")
             cur.execute(query)
             result = f"Parametro Creardo -> {values}"
@@ -66,3 +67,17 @@ def delete(table_name, where):
           cur.execute(query)
           result = f"Parametro de la tabla {table_name} Eliminado | ID -> {where[2]}"
   return result
+
+def select_join (columns, table, table_2, where=None):
+    with psycopg.connect(CONNECTION) as conn:
+        with conn.cursor() as cur:
+            column_list =", ".join(columns)
+            where_str=f"WHERE {table}.{where[0]} {where[1]} {where[2]}" if where else ""
+            query =f"""SELECT {column_list} FROM {table}  INNER JOIN {table_2}  ON 
+                    {table_2}.{where[0]} {where[1]} {where[2]} {where_str}"""
+            #print(query)
+            cur.execute(query)
+            result=cur.fetchall()
+            #for cust in cur.fetchall():
+             #   print(f"articulos: {cust}")
+    return result
