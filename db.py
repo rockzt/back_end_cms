@@ -1,4 +1,5 @@
 import psycopg
+import datetime
 
 CONN_STRING = "dbname=blog user=postgres password=postgres host=localhost port=5432"  #Cambiar el parametro dbname por el nombre de tu base de datos
 
@@ -38,7 +39,7 @@ def update(columns, table, values:tuple, where=None):
             query =f'UPDATE {table} SET {values_list_formatted} {where_string};'
             print(query)
             cur.execute(query)
-            result = f"Parametro Creardo -> {values}"
+            result = f"Parametro Actualizado -> {select('*', table, where)}"
     return result
 
 
@@ -46,8 +47,10 @@ def insert(columns, table, values:tuple):
     with psycopg.connect(CONN_STRING) as conn:
         with conn.cursor() as cur:
             columns = ", ".join(columns)
-            data=", ".join([f"'{v}'" if isinstance(v,str) else f"{v}" for v in values])
+            data=", ".join([f"'{v}'" if isinstance(v,str) or isinstance(v,datetime.date) else f"{v}" for v in values])
+            #data=", ".join([f"'{v}'" if isinstance(v,str) else f"{v}" for v in values])
             query =(f"INSERT INTO {table} ({columns}) VALUES ({data})")
+            print(query)
             cur.execute(query)
             result = f"Parametro Creardo -> {values}"
     return result
@@ -66,3 +69,17 @@ def delete(table_name, where):
           cur.execute(query)
           result = f"Parametro de la tabla {table_name} Eliminado | ID -> {where[2]}"
   return result
+
+def select_join (columns, table, table_2, where=None):
+    with psycopg.connect(CONN_STRING) as conn:
+        with conn.cursor() as cur:
+            column_list =", ".join(columns)
+            where_str=f"WHERE {table}.{where[0]} {where[1]} {where[2]}" if where else ""
+            query =f"""SELECT {column_list} FROM {table}  INNER JOIN {table_2}  ON
+                    {table_2}.{where[0]} {where[1]} {where[2]} {where_str}"""
+            #print(query)
+            cur.execute(query)
+            result=cur.fetchall()
+            #for cust in cur.fetchall():
+             #   print(f"articulos: {cust}")
+    return result
