@@ -1,0 +1,31 @@
+/*
+CREATE TABLE IF NOT EXISTS autor (
+    autor_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(15) NOT NULL,
+    last_name VARCHAR(20),
+    email VARCHAR(20) NOT NULL,
+    password VARCHAR(16) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS categoría (
+    categoria_id SERIAL PRIMARY KEY,
+    nom_cat VARCHAR(20),
+    descrip_cate TEXT
+);
+
+
+CREATE TABLE IF NOT EXISTS articulo (
+    art_id SERIAL PRIMARY KEY,
+    titulo VARCHAR(50),
+    conten TEXT,
+    autor_id INT,
+    categoria_id INT,
+    pub_date TIMESTAMP,
+    last_update TIMESTAMP,
+    active INT,
+    FOREIGN KEY (autor_id)
+          REFERENCES autor (autor_id),
+    FOREIGN KEY (categoria_id)
+          REFERENCES categoría (categoria_id)
+);
+*/
