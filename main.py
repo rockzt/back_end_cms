@@ -120,7 +120,9 @@ def main():
             print(result)
         elif option == 8:
             # Llamar a la función para obtener los artículos de un autor
-            result = articulo.get_article_by_author(1)
+            print("Articulos de Autor")
+            articulo_id = input('\n \t \t Autor ID: ')
+            result = articulo.get_article_by_author(articulo_id)
             print(result)
         elif option == 9:
             # Llamar a la función para crear un nuevo autor
