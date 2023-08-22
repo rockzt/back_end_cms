@@ -23,7 +23,7 @@ def get_autor(autor_id):
 
 def insert_autor(values):
     table="autor"
-    columns = ["first_name", "last_name", "email","passw"]
+    columns = ["first_name", "last_name", "email","password"]
     return db.insert(columns, table,values)
 
 def update_autor(columns,values,autor_id):
@@ -36,7 +36,7 @@ def get_arts(autor_id):
     """hice un select join para los articulos de un autor con nombre"""
     table="articulo"
     table_2="autor"
-    columns=["art_id","title","published_date","articulo.autor_id","first_name","last_name"]
+    columns=["art_id","titulo","pub_date","articulo.autor_id","first_name","last_name"]
     where = ("autor_id", "=", autor_id)
     return db.select_join(columns,table,table_2,where)
 
