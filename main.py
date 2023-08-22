@@ -1,8 +1,8 @@
-import psycopg2
-from category import *
-import category
+
+import category as category
 import articulo
 import autor
+import datetime
 
 
 #from psycopg2 import sql
@@ -65,18 +65,38 @@ def main():
             break
         elif option == 1:
             # Llamar a la función para crear un nuevo artículo
-            columns = ['titulo', 'conten']
-            values = ("Los drones 2.3", "Nuestro compañeros autónomos o enemigos?????!!!!!!.")
+            ct = datetime.datetime.now()
+            print("Crear Articulo")
+            title = input('\n \t \t Titulo: ')
+            content = input('\n \t \t Contenido: ')
+            autor_id = input('\n \t \t Autor id: ')
+            category_id = input('\n \t \t Categoria id: ')
+            pub_date = ct
+            last_update = ct
+            columns = ['titulo', 'conten', 'autor_id', 'categoria_id', 'pub_date', 'last_update' ,'active']
+            values = (title, content, autor_id, category_id, pub_date, last_update, 1)
             result = articulo.create_artticle(columns,values)
             print(result)
         elif option == 2:
             # Llamar a la función para modificar un artículo existente}
-            values = ("Los drones 2.3", "Nuestro compañeros autónomos o enemigos?????!!!!!!.")
-            columns = ['titulo', 'conten']
-            articulo.modify_article(2, columns, values)
+            ct = datetime.datetime.now()
+            print("Modifcar Articulo")
+            article_id = input('\n \t \t Articulo ID: ')
+            title = input('\n \t \t Titulo: ')
+            content = input('\n \t \t Contenido: ')
+            autor_id = input('\n \t \t Autor id: ')
+            category_id = input('\n \t \t Categoria id: ')
+            active = input('\n \t \t Activo: ')
+            pub_date = ct
+            last_update = ct
+            columns = ['titulo', 'conten', 'autor_id', 'categoria_id', 'pub_date', 'last_update' ,'active']
+            values = (title, content, autor_id, category_id, pub_date, last_update, active)
+            articulo.modify_article(article_id, columns, values)
         elif option == 3:
             # Llamar a la función para desactivar un artículo
-            result = articulo.deactivate_article(1)
+            print("Desactivar Articulo")
+            articulo_id = input('\n \t \t Articulo ID: ')
+            result = articulo.deactivate_article(articulo_id)
             print(result)
         elif option == 4:
             # Llamar a la función para obtener la lista de todos los artículos
@@ -84,11 +104,15 @@ def main():
             print(result)
         elif option == 5:
             # Llamar a la función para obtener los datos de un artículo
-            result = articulo.get_article(2)
+            print("Datos de un Articulo")
+            articulo_id = input('\n \t \t Articulo ID: ')
+            result = articulo.get_article(articulo_id)
             print(result)
         elif option == 6:
             # Llamar a la función para obtener los artículos de una categoría
-            result = articulo.get_article_by_category(3)
+            print("Articulos de un Articulo")
+            categoria_id = input('\n \t \t Categoria ID: ')
+            result = articulo.get_article_by_category(categoria_id)
             print(result)
         elif option == 7:
             # Llamar a la función para obtener los artículos activos/publicados
@@ -104,13 +128,13 @@ def main():
             values=autor.datos_autor()
             mi_resultado=autor.insert_autor(values)
             print(mi_resultado, ":", values)
-            #pass
+
         elif option == 10:
             # Llamar a la función para modificar los datos de un autor existente
             values=("Montse","mont@hotmail.com")
             columns=["first_name","email"]
-            mi_result=autor.update_autor(columns,values,"6") 
-            #pass
+            mi_result=autor.update_autor(columns,values,"6")
+
         elif option == 11:
             # Llamar a la función para obtener los datos de un autor
             id_autor = input('\n \t \t Id del Autor a consultar: ')
@@ -120,49 +144,51 @@ def main():
                 print("Nombre del Autor: ",v[1], " ",v[2])
                 print("Email: ",v[3],"  ","Password:",v[4])
                 print("\n")
-            #pass
+
         elif option == 12:
             # Llamar a la función para crear una nueva categoría
             print("Creemos juntos una nueva categoria")
             name=input("Dame un nombre para la categoria nueva:\n")
             description=input("Describe esta categoria:\n")
-            create_category(name,description)
-            
+            columns = ['nom_cat', 'descrip_cate']
+            values = (name, description)
+            category.create_category(columns, values)
+
             # La lista de categoria es:
-            
+
             print("La nueva lista es:\n")
-            categories=get_all_categories()
-            for category in categories:
-                print(category)
+            categories=category.get_all_categorias()
+            for categoria in categories:
+                print(categoria)
 
         elif option == 13:
             #Primero mostramos la lista actual
             print("La nueva lista es:\n")
-            categories=get_all_categories()
-            for category in categories:
-                print(category)
-            
+            categories=category.get_all_categorias()
+            for categoria in categories:
+                print(categoria)
+
             catid=input("Que numero de categoria quieres modificar?\n")
             nombrecat=input("¿que nombre quieres darle?\n")
             descicat=input("¿Que descripcion quieres darle?\n")
-            
-            
+
+
             # Llamar a la función para modificar los datos de una categoría
-            update_category(catid,nombrecat,descicat)
-            
+            columns = ['nom_cat', 'descrip_cate']
+            values = (nombrecat, descicat)
+            category.modify_categoria(catid, columns, values)
+
             print("La nueva lista es:\n")
-            categories=get_all_categories()
-            for category in categories:
-                print(category)
-            
-            
-            pass
+            categories=category.get_all_categorias()
+            for categoria in categories:
+                print(categoria)
+
         elif option == 14:
             # Obtener la lista de categorias.
-            categories=get_all_categories()
-            for category in categories:
-                print(category)
-            pass
+            categories=category.get_all_categorias()
+            for categoria in categories:
+                print(categoria)
+
         elif option == 15:
             # Llamar a la función para ver los articulos de un Autor con Nombre
             id_autor = input('\n \t \t Id del Autor a consultar: ')
@@ -173,8 +199,7 @@ def main():
                 print("Titulo del Articulo: ",v[1])
                 print("Fecha de Publicacion:",v[2])
                 print("Id Autor:",v[3],"    Nombre del Autor: ",v[4], " ",v[5])
-            #pass
-        
+
 if __name__ == "__main__":
     main()
 
